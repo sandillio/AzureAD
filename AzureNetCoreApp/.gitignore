@@ -1,0 +1,4 @@
+﻿#ignore all files under this folder
+PublishProfiles/
+#ignore this file 
+/appsettings.*json

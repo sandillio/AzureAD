@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "Status";
+}
+
+<h2>Status</h2>
+
+
+@using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "LogoutForm" }))
+{
+    <p>Is Authenticated </p>@User.Identity.IsAuthenticated
+    @if (User.Identity.IsAuthenticated)
+    {
+        @User.Claims
+        @User.Identity.Name
+
+        var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+
+        if (claimsIdentity != null)
+        {
+            var c = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (c != null)
+            {
+                <p>
+                    @c.Type.ToString();
+                    @c.Value.ToString();
+                </p>
+            }
+        }
+
+        <div class="row-fluid">
+            <div class="col-sm-3">
+                <button type="submit" id="btnSubmit" name="btnSubmit" value="Logout">Logout</button>
+            </div>
+        </div>
+
+    }
+}

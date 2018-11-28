@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<address>
+    One Microsoft Way<br />
+    Redmond, WA 98052-6399<br />
+    <abbr title="Phone">P:</abbr>
+    425.555.0100
+</address>
+@using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "LogoutForm" }))
+{
+    @User.Identity.IsAuthenticated
+    @if (User.Identity.IsAuthenticated)
+    {
+        @User.Claims
+        @User.Identity.Name
+
+        var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+
+        if (claimsIdentity != null)
+        {
+            var c = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+            if (c != null)
+            {
+                <p>
+                    @c.Type.ToString();
+                    @c.Value.ToString();
+                </p>
+            }
+        }
+
+        <div class="row-fluid">
+            <div class="col-sm-3">
+                <button type="submit" id="btnSubmit" name="btnSubmit" value="Logout">Logout</button>
+            </div>
+        </div>
+
+    }
+}
+    <address>
+        <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>
